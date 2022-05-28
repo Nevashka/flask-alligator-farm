@@ -9,6 +9,8 @@ werkzeug = "*"
 flask-cors = "*"
 pytest = "*"
 pytest-cov = "*"
+sqlalchemy = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

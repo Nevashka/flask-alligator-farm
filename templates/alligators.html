@@ -1,0 +1,15 @@
+{% extends 'default.html' %}
+{% block title %}Alligators{% endblock %}
+{% block content %}
+<h1>Alligators</h1>
+<ul>
+    {% for alligator in alligators %}
+    <li>
+        <a href={{ url_for('interact_with_alligator',
+                           id=alligator.id) }}>
+        {{ alligator.name }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
