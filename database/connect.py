@@ -1,15 +1,15 @@
-from sqlalchemy import create_engine
+import psycopg2
 from os import environ
 
-engine = create_engine(environ.get("DB_URL"))
+conn = psycopg2.connect(environ.get("DB_URL"), sslmode='require')
 
-setup_statement = """
+statement = """
     CREATE TABLE IF NOT EXISTS alligator (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(20) NOT NULL,
         age INTEGER NOT NULL
     );
 """
 
-with engine.connect() as conn:
-    conn.execute(setup_statement)
+with conn.cursor() as curs:
+        curs.execute(statement)

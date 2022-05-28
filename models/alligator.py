@@ -1,13 +1,14 @@
-from database.connect import engine
+from database.connect import conn
 from xml.dom import NotFoundErr
 
 class Alligator():
 
     @staticmethod
     def get_all():
-        with engine.connect() as conn:
-            results = conn.execute("SELECT * FROM alligator").fetchall()
-        return [Alligator(*a) for a in results]
+        with conn.cursor() as curs:
+            curs.execute("SELECT * FROM alligator")
+            results = curs.fetchall()
+        return [Alligator(*a) for a in results] if results else []
 
     @staticmethod
     def get_one_by_id(id):
@@ -15,28 +16,25 @@ class Alligator():
         statement = """
             SELECT *
             FROM alligator
-            WHERE id = :id
+            WHERE id = %s
             LIMIT 1;
         """
-        with engine.connect() as conn:
-            result = conn.execute(statement, id=id).fetchall()
+        with conn.cursor() as curs:
+            curs.execute(statement, (id,))
+            result = curs.fetchall()
         if not result:
             raise NotFoundErr
-        return Alligator(**result[0])
+        return Alligator(*result[0])
 
     @staticmethod
     def create(name, age):
 
-        statement = """
-            INSERT INTO alligator
-                (name, age)
-            VALUES
-                (:name, :age);
-        """
-        with engine.connect() as conn:
-            result = conn.execute(statement, name=name, age=age)
-            created = Alligator.get_one_by_id(result.lastrowid)
-            return created
+        statement = "INSERT INTO alligator (name, age) VALUES (%s, %s) RETURNING *;"
+        with conn.cursor() as curs:
+            curs.execute(statement, (name, age))
+            result = curs.fetchone()
+            conn.commit()
+            return Alligator(*result)
 
     def __init__(self, id, name, age):
         self.id = id

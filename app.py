@@ -38,9 +38,7 @@ def create_alligator():
         try:
             name = request.form.get("name-input")
             age = request.form.get("age-input")
-            print("aargh", name, age)
             result = Alligator.create(name, age)
-
             return redirect(url_for("interact_with_alligator", id=result.id))
             
         except Exception as err:
