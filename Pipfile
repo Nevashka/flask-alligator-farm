@@ -9,6 +9,7 @@ werkzeug = "*"
 flask-cors = "*"
 python-dotenv = "*"
 psycopg2 = "*"
+gunicorn = "*"
 
 [dev-packages]
 pytest = "*"
