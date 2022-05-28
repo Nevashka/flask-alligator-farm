@@ -1,7 +1,7 @@
 import psycopg2
 from os import environ
 
-conn = psycopg2.connect(environ.get("DB_URL"), sslmode='require')
+conn = psycopg2.connect(environ.get("DB_URL"))
 
 statement = """
     CREATE TABLE IF NOT EXISTS alligator (
