@@ -7,13 +7,18 @@ name = "pypi"
 flask = "*"
 werkzeug = "*"
 flask-cors = "*"
-pytest = "*"
-pytest-cov = "*"
-sqlalchemy = "*"
 python-dotenv = "*"
 psycopg2 = "*"
 
 [dev-packages]
+pytest = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.10"
+
+[scripts]
+dev = "bash -c \"export FLASK_ENV='development' && flask run --port 3000\""
+start = "gunicorn app:app"
+test = "pytest ."
+test_coverage = "pytest --cov-report  term-missing --cov=."
