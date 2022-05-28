@@ -1,25 +1,42 @@
-from xml.dom import NotFoundErr
 from database.connect import engine
+from xml.dom import NotFoundErr
 
 class Alligator():
-
-    _all = [(1, "Barry", 4),
-            (2, "Leonie", 2)]
 
     @staticmethod
     def get_all():
         with engine.connect() as conn:
-            results = conn.execute("SELECT * FROM alligator")
-            return [Alligator(*a) for a in results]
+            results = conn.execute("SELECT * FROM alligator").fetchall()
+        return [Alligator(*a) for a in results]
 
     @staticmethod
     def get_one_by_id(id):
+
+        statement = """
+            SELECT *
+            FROM alligator
+            WHERE id = :id
+            LIMIT 1;
+        """
         with engine.connect() as conn:
-            result = conn.execute("SELECT * FROM alligator WHERE id = :id",
-                                  id=id).fetchone()
+            result = conn.execute(statement, id=id).fetchall()
         if not result:
             raise NotFoundErr
-        return Alligator(**result)
+        return Alligator(**result[0])
+
+    @staticmethod
+    def create(name, age):
+
+        statement = """
+            INSERT INTO alligator
+                (name, age)
+            VALUES
+                (:name, :age);
+        """
+        with engine.connect() as conn:
+            result = conn.execute(statement, name=name, age=age)
+            created = Alligator.get_one_by_id(result.lastrowid)
+            return created
 
     def __init__(self, id, name, age):
         self.id = id

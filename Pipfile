@@ -11,6 +11,7 @@ pytest = "*"
 pytest-cov = "*"
 sqlalchemy = "*"
 python-dotenv = "*"
+psycopg2 = "*"
 
 [dev-packages]
 

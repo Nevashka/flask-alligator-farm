@@ -1,0 +1,12 @@
+{% extends 'default.html' %}
+{% block title %}Create an Alligator!{% endblock %}
+{% block content %}
+<h1>Create an Alligator</h1>
+<form method="POST">
+    <label for="name-input">Name: </label>
+    <input type="text"  name="name-input" id="name-input" required />
+    <label for="age-input">Age: </label>
+    <input type="number" min="0" name="age-input" id="age-input" required />
+    <input type="submit" value="Create">
+</form>
+{% endblock %}
