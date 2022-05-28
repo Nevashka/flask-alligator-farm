@@ -19,7 +19,7 @@ pytest-cov = "*"
 python_version = "3.10"
 
 [scripts]
-dev = "bash -c \"export FLASK_ENV='development' && flask run --port 3000\""
+dev = "bash -c \"flask run --port ${PORT}\""
 start = "gunicorn app:app"
 test = "pytest ."
 test_coverage = "pytest --cov-report  term-missing --cov=."
