@@ -1,1 +1,1 @@
-web: echo $DB_URL
+web: pipenv run start

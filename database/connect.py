@@ -1,9 +1,7 @@
 import psycopg2
 from os import environ
 
-URL = environ.get("DB_URL")
-
-print("DB:", URL)
+URL = environ.get("DATABASE_URL")
 
 conn = psycopg2.connect(URL)
 
