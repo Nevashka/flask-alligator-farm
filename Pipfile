@@ -10,6 +10,8 @@ flask-cors = "*"
 python-dotenv = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
+bcrypt = "*"
+pyjwt = "*"
 
 [dev-packages]
 pytest = "*"
@@ -19,7 +21,7 @@ pytest-cov = "*"
 python_version = "3.10"
 
 [scripts]
-dev = "flask run --port ${PORT}"
-start = "gunicorn --bind 0.0.0.0:$PORT app:app"
+dev = "python app.py"
+start = "gunicorn app:app"
 test = "pytest ."
 test_coverage = "pytest --cov-report  term-missing --cov=."

@@ -14,7 +14,9 @@
             <a href={{ url_for('index') }}>Home</a>
             <a href={{ url_for('show_alligators') }}>Alligators</a>
             <a href={{ url_for('create_alligator') }}>Create</a>
+            <a href={{ url_for('login') }}>Log in</a>
         </nav>
+        <span><a>{{ user.name }}</a></span>
     </header>
     <main>
         {% block content %}{% endblock %}
